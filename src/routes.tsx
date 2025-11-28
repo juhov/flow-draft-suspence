@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router'
+import { Suspense } from 'react'
+import { createBrowserRouter, Outlet } from 'react-router'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { Loading } from './components/Loading'
 import { Layout } from './Layout'
@@ -7,41 +8,43 @@ import { BillingInformation } from './pages/BillingInformation'
 import { CurrentPlan } from './pages/CurrentPlan'
 import { ExportData } from './pages/ExportData'
 import { Home } from './pages/Home'
-import { rootLoader, rootRouteId } from './root'
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    Component: Layout,
+    element: (
+      <Layout>
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+      </Layout>
+    ),
     children: [
       {
         path: '/',
-        id: rootRouteId,
-        loader: rootLoader,
-        HydrateFallback: Loading,
         ErrorBoundary: ErrorBoundary,
         children: [
           {
             index: true,
-            Component: Home,
+            element: <Home />,
           },
           {
             path: 'current-plan',
-            Component: CurrentPlan,
+            element: <CurrentPlan />,
           },
           {
             path: 'billing-information',
-            Component: BillingInformation,
+            element: <BillingInformation />,
           },
           {
             path: 'export-data',
-            Component: ExportData,
+            element: <ExportData />,
           },
         ],
       },
       {
         path: '/auth/return',
-        Component: AuthReturn,
+        element: <AuthReturn />,
       },
     ],
   },

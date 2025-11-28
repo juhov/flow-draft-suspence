@@ -1,8 +1,8 @@
 import { Link } from 'react-router';
-import { useRootLoaderData } from '../root';
+import { useAccount } from '../root';
 
 export function Home() {
-  const account = useRootLoaderData();
+  const account = useAccount();
 
   return (
     <div>

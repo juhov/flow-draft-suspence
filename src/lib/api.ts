@@ -7,6 +7,7 @@ export async function fetchAccount(): Promise<Account> {
 
   // Simulate random error (30% chance)
   if (Math.random() < 0.3) {
+    console.error('Failed to fetch account data.')
     throw new Error('Failed to fetch account data. Please try again.')
   }
 
