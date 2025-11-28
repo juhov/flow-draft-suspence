@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router';
+import { useRootLoaderData } from '../root';
 
 export function Home() {
+  const account = useRootLoaderData();
+
   return (
     <div>
       <h1>Home</h1>
-      <p>Welcome to the home page.</p>
+      <p>Welcome, {account.name}!</p>
+      <p>Data fetched at: {account.timestamp}</p>
       <ul>
         <li>
           <Link to="/current-plan">Current Plan</Link>
@@ -17,6 +21,5 @@ export function Home() {
         </li>
       </ul>
     </div>
-  )
+  );
 }
-

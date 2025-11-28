@@ -1,44 +1,49 @@
-import { RouteObject } from 'react-router-dom'
-import { App } from './App'
+import { createBrowserRouter } from 'react-router'
+import { ErrorBoundary } from './components/ErrorBoundary'
+import { Loading } from './components/Loading'
 import { Layout } from './Layout'
-import { Home } from './pages/Home'
-import { CurrentPlan } from './pages/CurrentPlan'
-import { BillingInformation } from './pages/BillingInformation'
-import { ExportData } from './pages/ExportData'
 import { AuthReturn } from './pages/AuthReturn'
+import { BillingInformation } from './pages/BillingInformation'
+import { CurrentPlan } from './pages/CurrentPlan'
+import { ExportData } from './pages/ExportData'
+import { Home } from './pages/Home'
+import { rootLoader, rootRouteId } from './root'
 
-export const routes: RouteObject[] = [
+export const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    Component: Layout,
     children: [
       {
         path: '/',
-        element: <Layout />,
+        id: rootRouteId,
+        loader: rootLoader,
+        HydrateFallback: Loading,
+        ErrorBoundary: ErrorBoundary,
         children: [
           {
             index: true,
-            element: <Home />,
+            Component: Home,
           },
           {
             path: 'current-plan',
-            element: <CurrentPlan />,
+            Component: CurrentPlan,
           },
           {
             path: 'billing-information',
-            element: <BillingInformation />,
+            Component: BillingInformation,
           },
           {
             path: 'export-data',
-            element: <ExportData />,
+            Component: ExportData,
           },
         ],
       },
       {
         path: '/auth/return',
-        element: <AuthReturn />,
+        Component: AuthReturn,
       },
     ],
   },
-]
+])
 
