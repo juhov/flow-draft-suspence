@@ -21,6 +21,18 @@ export async function fetchAccount(): Promise<Account> {
       minute: "2-digit",
       second: "2-digit",
     }),
+    plans: [
+      {
+        id: '1',
+        name: 'Basic Plan',
+        price: 10,
+      },
+      {
+        id: '2',
+        name: 'Pro Plan',
+        price: 20,
+      },
+    ],
   }
 }
 
